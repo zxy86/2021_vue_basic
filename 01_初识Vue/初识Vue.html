@@ -8,7 +8,19 @@
 </head>
 
 <body>
-
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>Hello,{{school}}</h1>
+    </div>
+    <script type="text/javascript">
+        //创建一个Vue的实例对象，并传入配置对象
+        const v = new Vue({
+            el: '#root',//用于指定当前Vue实例为哪个容器服务，值是选择字符串，选择器写法类似于jQuery
+            data: {//data是存储数据的地方，为root容器提供数据，值为一个对象，相当于React中的state
+                school: '尚硅谷'
+            }
+        })
+    </script>
 </body>
 
 </html>
