@@ -4,11 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MVM模型</title>
+    <title>data与el的2种写法</title>
     <script type="text/javascript" src="../js/vue.js"></script>
 </head>
 
 <body>
+    <!-- 
+        data与el的2种写法：
+            1.el有2种写法：
+                (1).new Vue时候直接传递el属性 ---- 常用
+                (2).先new Vue 再通过vm.$mount('#root')指定容器 ---- 不常用
+            2.data有2种写法：
+                (1).对象式：非组件编码是可以写对象，也可以写函数。
+                (2).函数式：组件化编码必须使用函数式的data。
+        Vue中的一个最最重要的原则：
+            由Vue所管理的函数，都不要写成箭头函数，一旦写了箭头函数，this就不对了(或许是undefined,或许是window)
+    -->
     <!-- 准备一个容器 -->
     <div id="root">
         <h2>Hello，{{msg}}</h2>
@@ -42,10 +53,14 @@
             }
         })*/
 
-        //data的第一种写法，data是一个函数，返回数据对象
-        new Vue({
+        //data的第二种写法，data是一个函数，且要返回数据对象（组件中必须用函数式data）
+        const vm = new Vue({
             el: '#root',
-            data: function () {//特别注意：data不要写成箭头函数，要写成普通函数，否则this的指向就是window了，而不是vue的实例对象
+            /*
+                1.若使用函数式data，Vue会帮我们调用data函数，Vue就会得到返回的数据对象，从而使用，this是Vue的实例对象
+                2.特别注意：data不要写成箭头函数，要写成普通函数，否则this的指向就是window了，而不是vue的实例对象
+            */
+            data: function () {
                 return {
                     msg: '尚硅谷',
                     address: '宏福科技园综合楼'
@@ -53,12 +68,8 @@
             }
         })
 
-        /*console.log(vm)
-        setTimeout(() => {
-            vm.msg = 'atguigu'
-        }, 1000)*/
-
     </script>
+
 </body>
 
 </html>
